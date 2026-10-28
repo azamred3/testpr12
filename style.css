@@ -1,5 +1,7 @@
 /* ============================================================
+   عودة للعقار — style.css كامل
    أزرق ثقيل + أيقونات ملوّنة واضحة + بنية Bento
+   + شبكة 2×2 على الهواتف
    ============================================================ */
 
 * {
@@ -702,7 +704,6 @@ body::before {
     padding: 4px 0;
 }
 
-/* الأيقونة — بيضاء على خلفية ملونة = واضحة تماماً */
 .spec-icon {
     width: 32px;
     height: 32px;
@@ -717,7 +718,6 @@ body::before {
     flex-shrink: 0;
 }
 
-/* 4 ألوان متدرجة */
 .spec-item:nth-child(1) .spec-icon {
     background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
 }
@@ -731,7 +731,6 @@ body::before {
     background: linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 100%);
 }
 
-/* هوفر: رفع خفيف + توهج بلون الأيقونة */
 .spec-item:hover .spec-icon {
     transform: translateY(-2px) scale(1.08);
 }
@@ -764,7 +763,6 @@ body::before {
     line-height: 1.2;
 }
 
-/* البطاقة الكبيرة: أحجام أكبر */
 .property-card:nth-child(5n+1) .property-specs {
     gap: 8px;
 }
@@ -777,7 +775,6 @@ body::before {
 .property-card:nth-child(5n+1) .spec-value { font-size: 14px; }
 .property-card:nth-child(5n+1) .spec-label { font-size: 10px; }
 
-/* البطاقة العريضة: مواصفات في 2×2 */
 .property-card:nth-child(5n+4) .property-specs {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
@@ -1076,7 +1073,6 @@ body::before {
     border-color: var(--border-strong);
 }
 
-/* أيقونات المعاينة — نفس النظام: بيضاء على خلفيات ملونة */
 .preview-spec-item > i {
     font-size: 16px;
     width: 40px;
@@ -1562,7 +1558,9 @@ body::before {
 
 .reset-search-btn:hover { background: var(--accent-hover); }
 
-/* ============ RESPONSIVE ============ */
+/* ============================================================
+   استجابة — تابلت (≤1024px)
+   ============================================================ */
 @media (max-width: 1024px) {
     .properties-container {
         grid-template-columns: repeat(2, 1fr);
@@ -1590,7 +1588,12 @@ body::before {
     .property-card:nth-child(5n+1) .property-location { font-size: 11px; }
 }
 
+/* ============================================================
+   📱 الهواتف (≤640px) — شبكة 2×2
+   ============================================================ */
 @media (max-width: 640px) {
+
+    /* ---------- الهيرو ---------- */
     .hero-section { padding: 0 12px; margin-top: 12px; }
     .hero-card { aspect-ratio: 4 / 5; max-height: 560px; }
     .hero-content { padding: 24px; }
@@ -1602,13 +1605,15 @@ body::before {
     .section-intro { padding: 0 12px; margin-top: 24px; }
     .section-heading { font-size: 22px; }
 
+    /* ---------- ⭐ الشبكة: عمودان ---------- */
     .properties-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: auto;
+        gap: 10px;
         padding: 0;
-        gap: 14px;
     }
 
+    /* توحيد جميع البطاقات — إلغاء تميّز nth-child */
     .property-card,
     .property-card:nth-child(5n+1),
     .property-card:nth-child(5n+4) {
@@ -1616,25 +1621,195 @@ body::before {
         grid-row: span 1 !important;
         flex-direction: column;
         height: auto;
-        min-height: 420px;
+        min-height: 0;
+        border-radius: 14px;
     }
 
+    /* الصورة */
+    .property-card .property-image,
     .property-card:nth-child(5n+1) .property-image,
     .property-card:nth-child(5n+4) .property-image {
         width: 100%;
-        height: 180px;
+        height: 115px;
     }
 
+    /* المحتوى */
+    .property-card .property-content,
     .property-card:nth-child(5n+1) .property-content,
     .property-card:nth-child(5n+4) .property-content {
         width: 100%;
-        padding: 14px;
+        padding: 9px;
     }
 
-    .property-card .property-description { display: -webkit-box !important; }
-    .property-card .share-btn { display: flex !important; }
+    /* ---------- العناوين والسعر ---------- */
+    .property-card .property-header,
+    .property-card:nth-child(5n+1) .property-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+        margin-bottom: 4px;
+    }
+
+    .property-card .property-title,
+    .property-card:nth-child(5n+1) .property-title {
+        font-size: 11.5px;
+        line-height: 1.3;
+        -webkit-line-clamp: 2;
+    }
+
+    .property-card .property-price,
+    .property-card:nth-child(5n+1) .property-price {
+        font-size: 12px;
+        font-weight: 900;
+    }
+
+    .property-card .property-location,
+    .property-card:nth-child(5n+1) .property-location {
+        font-size: 9px;
+        margin-bottom: 6px;
+        gap: 3px;
+    }
+
+    .property-card .property-location i { font-size: 8px; }
+
+    /* إخفاء الوصف */
+    .property-card .property-description,
+    .property-card:nth-child(5n+1) .property-description,
+    .property-card:nth-child(5n+4) .property-description {
+        display: none !important;
+    }
+
+    /* ---------- المواصفات 2×2 ---------- */
+    .property-card .property-specs,
+    .property-card:nth-child(5n+1) .property-specs,
     .property-card:nth-child(5n+4) .property-specs {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        padding: 7px 0;
+        margin: 6px 0;
+    }
+
+    .property-card .spec-item,
+    .property-card:nth-child(5n+1) .spec-item {
+        gap: 3px;
+        padding: 2px 0;
+    }
+
+    .property-card .spec-icon,
+    .property-card:nth-child(5n+1) .spec-icon {
+        width: 26px;
+        height: 26px;
+        font-size: 11px;
+        border-radius: 8px;
+    }
+
+    .property-card .spec-value,
+    .property-card:nth-child(5n+1) .spec-value {
+        font-size: 10px;
+    }
+
+    .property-card .spec-label,
+    .property-card:nth-child(5n+1) .spec-label {
+        font-size: 7.5px;
+    }
+
+    /* ---------- الشارات والأزرار العلوية ---------- */
+    .property-card .property-badge,
+    .property-card .property-code {
+        font-size: 8.5px;
+        padding: 3px 8px;
+    }
+
+    .property-card .property-actions-top {
+        bottom: 6px;
+        right: 6px;
+        gap: 4px;
+    }
+
+    .property-card .property-action-top {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+    }
+
+    /* ---------- التذييل والأزرار ---------- */
+    .property-card .property-footer,
+    .property-card:nth-child(5n+1) .property-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        margin-top: 4px;
+    }
+
+    .property-card .property-meta {
+        font-size: 8.5px;
+        justify-content: flex-start;
+        gap: 2px;
+    }
+
+    .property-card .property-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+        width: 100%;
+    }
+
+    .property-card .property-action-btn {
+        width: 100%;
+        height: 26px;
+        font-size: 10px;
+        border-radius: 7px;
+    }
+
+    /* إخفاء زر المشاركة السفلي (متاح أعلى الصورة) */
+    .property-card .share-btn {
+        display: none !important;
+    }
+}
+
+/* ============================================================
+   📱 شاشات صغيرة جداً (≤380px) — تصغير إضافي
+   ============================================================ */
+@media (max-width: 380px) {
+    .properties-container {
+        gap: 8px;
+    }
+
+    .property-card .property-image,
+    .property-card:nth-child(5n+1) .property-image,
+    .property-card:nth-child(5n+4) .property-image {
+        height: 100px;
+    }
+
+    .property-card .property-content {
+        padding: 8px;
+    }
+
+    .property-card .property-title {
+        font-size: 11px;
+    }
+
+    .property-card .property-price {
+        font-size: 11px;
+    }
+
+    .property-card .spec-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+
+    .property-card .spec-value {
+        font-size: 9.5px;
+    }
+
+    .property-card .spec-label {
+        font-size: 7px;
+    }
+
+    .property-card .property-action-btn {
+        height: 24px;
+        font-size: 9px;
     }
 }
 
